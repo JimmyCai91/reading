@@ -16,5 +16,6 @@
 
 ---
 
-
+#### LLM models
+- [LLaMA-2](https://cameronrwolfe.substack.com/p/llama-2-from-the-ground-up)
 
