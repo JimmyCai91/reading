@@ -19,3 +19,15 @@
 #### LLM models
 - [LLaMA-2](https://cameronrwolfe.substack.com/p/llama-2-from-the-ground-up)
 
+
+---
+
+**RMSNorm**
+
+[torch.nn.RMSNorm](https://pytorch.org/docs/stable/generated/torch.nn.RMSNorm.html) | [source](https://github.com/pytorch/pytorch/blob/v2.6.0/torch/nn/modules/normalization.py#L321)
+
+```python 
+
+
+
+```
