@@ -24,10 +24,56 @@
 
 **RMSNorm**
 
-[torch.nn.RMSNorm](https://pytorch.org/docs/stable/generated/torch.nn.RMSNorm.html) | [source](https://github.com/pytorch/pytorch/blob/v2.6.0/torch/nn/modules/normalization.py#L321)
+[torch.nn.RMSNorm](https://pytorch.org/docs/stable/generated/torch.nn.RMSNorm.html) | [source](https://github.com/pytorch/pytorch/blob/v2.6.0/torch/nn/modules/normalization.py#L321) | [others](https://github.com/bzhangGo/rmsnorm/blob/master/rmsnorm_torch.py)
+
+$y_i = \frac{x_i}{\mathrm{RMS}(x)} * \gamma_i, \quad
+        \text{where} \quad \text{RMS}(x) = \sqrt{\epsilon + \frac{1}{n} \sum_{i=1}^{n} x_i^2}$
 
 ```python 
 
+import torch
+import torch.nn as nn
 
+class RMSNorm(nn.Module):
+    def __init__(self, d, p=-1., eps=1e-8, bias=False):
+        """
+            Root Mean Square Normalization
+        : param d: model size
+        : param p: partial RMSNorm, valid value [0, 1], default -1.0 (disable)
+        : param eps: epsilon value, default 1e-8
+        : param bias: whether use bias term for RMSNorm, disabled by 
+            default because RMSNorm doesn't enforce re-centering invariance.
+        """
+        super(RMSNorm, self).__init__()
 
+        self.eps = eps
+        self.d = d
+        self.p = p
+        self.bias = bias
+
+        self.scale = nn.Parameter(torch.ones(d))
+        self.register_parameter("scale", self.scale)
+
+        if self.bias:
+            self.offset = nn.Parameter(torch.zeros(d))
+            self.register_paramter("offset", self.offset)
+    
+    def forward(self, x):
+        if self.p < 0. or self.p > 1.:
+            norm_x = x.norm(2, dim=-1, keepdim=True)
+            d_x = self.d
+        else:
+            partial_size = int(self.d * self.p)
+            partial_x, _ = torch.split(x, [partial_size, self.d - partial_size], dim=-1)
+
+            norm_x = partial_x.norm(2, dim=-1, keepdim=True)
+            d_x = partial_size
+        
+        rms_x = norm_x * d_x ** (-1. / 2)
+        x_normed = x / (rms_x + self.eps)
+
+        if self.bias:
+            return self.scale * x_normed + self.offset
+        
+        return self.scale * x_normed
 ```
