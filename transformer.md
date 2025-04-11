@@ -22,6 +22,34 @@
 
 ---
 
+**Swish Activation**
+
+[torch.nn.SiLU](https://pytorch.org/docs/stable/generated/torch.nn.SiLU.html) | [Link](https://medium.com/@jiangmen28/beyond-relu-discovering-the-power-of-swiglu-超越-relu-发现-swiglu-的力量-9dbc7d8258bf)
+
+$\text{silu}(x) = x * \sigma(x), \text{where } \sigma(x) \text{ is the logistic sigmoid.}$
+
+```python
+import torch 
+import torch.nn as nn
+import torch.nn.functional as F
+
+class FeedForward(nn.Module):
+    def __init__(self, dim: int, hidden_dim: int, multiple_of: int, dropout: float):
+        super().__init__()
+        # Adjust hidden_dim to be a multiple of multiple_of
+        hidden_dim = multiple_of * ((2 * hidden_dim // 3 + multiple_of -1) // multiple_of)
+        self.w1 = nn.Linear(dim, hidden_dim)    # First linear transformation
+        self.w2 = nn.Linear(hidden_dim, dim)    # Second linear transformation
+        self.w3 = nn.Linear(dim, hidden_dim)    # Third linear transformation 
+        self.dropout = nn.Dropout(dropout)      # Dropout layer
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # Forward pass using Swish activation and dropout
+        return self.dropout(self.w2(F.silu(self.w1(x)) * self.w3(x)))
+```
+
+---
+
 **RMSNorm**
 
 [torch.nn.RMSNorm](https://pytorch.org/docs/stable/generated/torch.nn.RMSNorm.html) | [source](https://github.com/pytorch/pytorch/blob/v2.6.0/torch/nn/modules/normalization.py#L321) | [others](https://github.com/bzhangGo/rmsnorm/blob/master/rmsnorm_torch.py)
@@ -77,3 +105,14 @@ class RMSNorm(nn.Module):
         
         return self.scale * x_normed
 ```
+
+---
+
+**Absolute Positional Embedding**
+[Link](https://cameronrwolfe.substack.com/p/language-understanding-with-bert#§berts-architecture)
+
+**Relative Positional Embedding**
+[Link](https://jaketae.github.io/study/relative-positional-encoding/)
+
+**Rotary Positional Embedding**
+[Link](https://blog.eleuther.ai/rotary-embeddings/)
