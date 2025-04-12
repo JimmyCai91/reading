@@ -4,21 +4,17 @@
 3. [2020 An Image Is Worth 16x16 Words](https://arxiv.org/pdf/2010.11929)
 4. [2021 Swin Transformer](https://arxiv.org/pdf/2103.14030)
 
+---
 
 #### Table of Content 
+
 - [Transformer Anatomy](#transformer-anatomy): Encoder, Decoder, MHA, Scaled dot-product Attention, and some of the most prominent architectures
 
 ---
 
-#### Transformer Anatomy    
-[Table of Content](#table-of-content)  
-<div align="center"><img src="../pictures/TransformerAnatomy.png" width=""></div>
-
----
-
 #### LLM models
-- [LLaMA-2](https://cameronrwolfe.substack.com/p/llama-2-from-the-ground-up)
-
+- [LLaMA-2](https://cameronrwolfe.substack.com/p/llama-2-from-the-ground-up)  
+- [PaLM](https://blog.eleuther.ai/rotary-embeddings/)
 
 ---
 
@@ -108,11 +104,6 @@ class RMSNorm(nn.Module):
 
 ---
 
-**Absolute Positional Embedding**
-[Link](https://cameronrwolfe.substack.com/p/language-understanding-with-bert#§berts-architecture)
+**Positional Embedding**
 
-**Relative Positional Embedding**
-[Link](https://jaketae.github.io/study/relative-positional-encoding/)
-
-**Rotary Positional Embedding**
-[Link](https://blog.eleuther.ai/rotary-embeddings/)
+[Link](https://huggingface.co/blog/designing-positional-encoding)
