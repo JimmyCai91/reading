@@ -12,9 +12,11 @@
 
 ---
 
-#### LLM models
+#### LLMs
+
+- [BERT](https://cameronrwolfe.substack.com/p/language-understanding-with-bert#§berts-architecture)  
+- [PaLM](https://blog.eleuther.ai/rotary-embeddings/)  
 - [LLaMA-2](https://cameronrwolfe.substack.com/p/llama-2-from-the-ground-up)  
-- [PaLM](https://blog.eleuther.ai/rotary-embeddings/)
 
 ---
 
