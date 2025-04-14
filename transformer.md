@@ -12,6 +12,11 @@
 
 1. [What is RAG?](https://cohere.com/blog/what-is-rag)
 
+
+**Code**  
+
+1. [Hands on LLMs](https://github.com/HandsOnLLM/Hands-On-Large-Language-Models/tree/main)
+
 ---
 
 #### Table of Content 
