@@ -11,7 +11,7 @@
 **Article**
 
 1. [What is RAG?](https://cohere.com/blog/what-is-rag)
-
+2. [From Basic to Advanced RAG every step of the way](https://rahuld3eora.medium.com/from-basic-to-advanced-rag-every-step-of-the-way-dee3a3a1aae9)
 
 **Code**  
 
