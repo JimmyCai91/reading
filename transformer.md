@@ -15,7 +15,9 @@
 
 **Code**  
 
-1. [Hands on LLMs](https://github.com/HandsOnLLM/Hands-On-Large-Language-Models/tree/main)
+1. [Hands on LLMs](https://github.com/HandsOnLLM/Hands-On-Large-Language-Models/tree/main)  
+2. [LlamaIndex](https://github.com/run-llama/llama_index/tree/main)  
+3. [BM25 Retriever](https://docs.llamaindex.ai/en/stable/examples/retrievers/bm25_retriever/)  
 
 ---
 
