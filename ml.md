@@ -1,0 +1,1 @@
+1. [Adam vs. AdamW](https://yassin01.medium.com/adam-vs-adamw-understanding-weight-decay-and-its-impact-on-model-performance-b7414f0af8a1)
