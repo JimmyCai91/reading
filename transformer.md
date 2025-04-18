@@ -16,8 +16,8 @@
 **Code**  
 
 1. [Hands on LLMs](https://github.com/HandsOnLLM/Hands-On-Large-Language-Models/tree/main)  
-2. [LlamaIndex](https://github.com/run-llama/llama_index/tree/main)  
-3. [BM25 Retriever](https://docs.llamaindex.ai/en/stable/examples/retrievers/bm25_retriever/)  
+2. [LlamaIndex](https://github.com/run-llama/llama_index/tree/main): [Question-Answering](https://docs.llamaindex.ai/en/stable/use_cases/q_and_a/), [BM25 Retriever](https://docs.llamaindex.ai/en/stable/examples/retrievers/bm25_retriever/)  
+
 
 ---
 
@@ -32,6 +32,52 @@
 - [BERT](https://cameronrwolfe.substack.com/p/language-understanding-with-bert#§berts-architecture)  
 - [PaLM](https://blog.eleuther.ai/rotary-embeddings/)  
 - [LLaMA-2](https://cameronrwolfe.substack.com/p/llama-2-from-the-ground-up)  
+- [GQA - explained with code](https://medium.com/@maxshapp/grouped-query-attention-gqa-explained-with-code-e56ee2a1df5a)
+
+---
+
+**Multi-Headed, Causal Self-Attention**  
+
+$Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V$  
+$MultiHead(Q,K,V) = Concat(head_1, ..., head_h)W^o, \text{where } head_i = Attention(QW^Q_i, KW^K_i, VW^V_i)$
+
+**Grouped-query Attention**  
+
+```python  
+import torch
+import torch.nn.functional as F
+from einops import einsum, rearrange
+
+# shapes: (batch_size, seq_len, num_heads, head_dim)  
+query = torch.randn(1, 256, 8, 64)  
+key = torch.randn(1, 256, 2, 64)  
+value = torch.randn(1, 256, 2, 64)  
+
+# define number of heads in one group, in this toy example we have 2 kv_heads, 
+# so this means we will have 2 groups of size 4 each
+num_head_groups = query.shape[2] // key.shape[2]
+scale = query.size(-1) ** 0.5
+
+# Swap seq_len with num_heads to accelerate computations
+query = rearrange(query, "b n h d -> b h n d")
+key = rearrange(key, "b s h d -> b h s d")
+value = rearrange(value, "b s h d -> b h s d")
+
+# split query num_heads in groups by introducing additional `g` dimension
+query = rearrange(query, "b (h g) n d -> b g h n d", g=num_head_groups)
+
+# calculate the attention scores and sum over the group dim to perform averaging 
+scores = einsum(query, key, "b g h n d, b h s d -> b h n s")
+attention = F.softmax(scores / scale, dim=-1)
+
+# apply weights to the value head
+out = einsum(attention, value, "b h n s, b h s d -> b h n d")
+
+# reshape back to original dimensions
+out = rearrange(out, "b h n d -> b n h d")
+```
+
+
 
 ---
 
