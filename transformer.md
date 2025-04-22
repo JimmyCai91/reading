@@ -12,6 +12,7 @@
 
 1. [What is RAG?](https://cohere.com/blog/what-is-rag)
 2. [From Basic to Advanced RAG every step of the way](https://rahuld3eora.medium.com/from-basic-to-advanced-rag-every-step-of-the-way-dee3a3a1aae9)
+3. [Open LLMs](https://github.com/eugeneyan/open-llms?tab=readme-ov-file)
 
 **Code**  
 
@@ -33,6 +34,8 @@
 - [PaLM](https://blog.eleuther.ai/rotary-embeddings/)  
 - [LLaMA-2](https://cameronrwolfe.substack.com/p/llama-2-from-the-ground-up)  
 - [GQA - explained with code](https://medium.com/@maxshapp/grouped-query-attention-gqa-explained-with-code-e56ee2a1df5a)
+- [Qwen1.5-110B](https://qwenlm.github.io/zh/blog/qwen1.5-110b/)
+
 
 ---
 
